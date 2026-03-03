@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班級座號查詢</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            font-family: sans-serif;
+        }
+
+        /* 查詢卡片 */
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            width: 300px;
+            text-align: center;
+        }
+
+        h2 { color: #4361ee; margin-bottom: 20px; }
+
+        /* 輸入框 */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        input:focus { border-color: #4361ee; }
+
+        /* 按鈕 */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover { background-color: #3046c8; }
+
+        /* 結果顯示區 */
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            display: none; /* 預設隱藏 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>座號查詢系統</h2>
+        <input type="number" id="seatNumber" placeholder="請輸入座號 (1-27)">
+        <button onclick="search()">登入查詢</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // 這裡放你原本的字典資料
+        const classList = {
+            "1": ["王辰洧", "副班長"], "2": ["王建凱", "腳踏車公差"], "3": ["吳承諺", "學藝股長"],
+            "4": ["李昌霖", "設備股長"], "5": ["周裕宸", "地理小老師"], "6": ["林炘楷", "訓育股長"],
+            "7": ["林祐丞", "事務股長"], "8": ["林靖傑", "康樂股長"], "9": ["林駿騰", "小老師"],
+            "10": ["張祐瑋", "大老師"], "11": ["陳一揚", "風紀股長"], "12": ["黃詠呈", "獎懲紀錄"],
+            "13": ["曾丞翰", ""], "14": ["楊宗翰", "手機公差"], "15": ["王于緁", "歷史小老師"],
+            "16": ["王姵云", "英文小老師"], "17": ["吳昀潼", ""], "18": ["吳奕璇", "公民小老師"],
+            "19": ["林雨辰", ""], "20": ["林思彤", ""], "21": ["張勻瑄", "衛生股長"],
+            "22": ["陳又瑜", "四合一"], "23": ["陳羽亭", ""], "24": ["陳珮欣", "四合一"],
+            "25": ["詹胥亭亞", "輔導股長"], "26": ["蔡雨恬", "大班長"], "27": ["賴榆芹", "自然小老師"]
+        };
+
+        function search() {
+            const num = document.getElementById('seatNumber').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (classList[num]) {
+                const name = classList[num][0];
+                const job = classList[num][1];
+                const jobDisplay = job ? ` (${job})` : "";
+                
+                resultDiv.style.display = "block";
+                resultDiv.style.color = "#2ecc71"; // 綠色表示成功
+                resultDiv.innerHTML = `查得姓名：${name}${jobDisplay}`;
+            } else {
+                resultDiv.style.display = "block";
+                resultDiv.style.color = "#e74c3c"; // 紅色表示錯誤
+                resultDiv.innerHTML = "找不到此座號";
+            }
+        }
+    </script>
+</body>
+</html>
