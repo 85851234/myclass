@@ -69,13 +69,12 @@
 
     <div class="card">
         <h2>座號查詢系統</h2>
-        <input type="number" id="seatNumber" placeholder="請輸入座號 (1-27)">
+        <input type="text" id="seatNumber" placeholder="輸入座號(1-27) 或 班導">
         <button onclick="search()">登入查詢</button>
         <div id="result"></div>
     </div>
 
     <script>
-        // 這裡放你原本的字典資料
         const classList = {
             "1": ["王辰洧", "副班長"], "2": ["王建凱", "腳踏車公差"], "3": ["吳承諺", "學藝股長"],
             "4": ["李昌霖", "設備股長"], "5": ["周裕宸", "地理小老師"], "6": ["林炘楷", "訓育股長"],
@@ -89,8 +88,17 @@
         };
 
         function search() {
-            const num = document.getElementById('seatNumber').value;
+            // 加入 .trim() 幫使用者把不小心多打的空白鍵濾掉
+            const num = document.getElementById('seatNumber').value.trim();
             const resultDiv = document.getElementById('result');
+            
+            // 2. 針對「班導」設定專屬的條件 (打 0 或 班導 都可以)
+            if (num === "班導" || num === "0") {
+                resultDiv.style.display = "block";
+                resultDiv.style.color = "#f39c12"; // 給老師一個特別的金色
+                resultDiv.innerHTML = "班導 歷史老師 張鑫堯";
+                return; // 執行完就結束，不用再往下找
+            }
             
             if (classList[num]) {
                 const name = classList[num][0];
@@ -108,6 +116,4 @@
         }
     </script>
 </body>
-
 </html>
-
